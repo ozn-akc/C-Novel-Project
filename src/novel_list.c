@@ -1,4 +1,5 @@
-#include "headers\novel_list.h"
+#include "headers/novel_list.h"
+#include "headers/list_swap.h"
 
 void list_init(novel_field *f){
     f->start = 0;
@@ -53,8 +54,8 @@ void hexterminate(novel_field *f){
     f->curr = f->start;
     while(f->curr){
         printf("\n%-35s ",f->curr->name);
-        printf("Currents   : %8X ",f->curr);
         printf("Previous   : %8X ",f->curr->pre);
+        printf("Currents   : %8X ",f->curr);
         printf("Following  : %8X",f->curr->post);
         f->curr = f->curr->post;
     }
@@ -119,5 +120,9 @@ void delete_elements_from_list(novel_field *f, int upper, int lower){
 }
 
 void sort_list(novel_field *f, int sortBy){
+    f->curr = f->start;
+    if(f->curr){
+
+    }
     //TODO Sorting Algorithm
 }

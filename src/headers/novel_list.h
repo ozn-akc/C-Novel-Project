@@ -42,4 +42,5 @@ void delete_elements_from_list(novel_field*, int upper, int lower);
 
 void sort_list(novel_field*, int);
 
+
 #endif

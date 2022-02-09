@@ -117,3 +117,7 @@ void delete_elements_from_list(novel_field *f, int upper, int lower){
         delete_element_from_list(f, lower);
     }
 }
+
+void sort_list(novel_field *f, int sortBy){
+    //TODO Sorting Algorithm
+}

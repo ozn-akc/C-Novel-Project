@@ -36,8 +36,10 @@ void hexterminate(novel_field*);
 
 void list_to_string(novel_field*);
 
-void delete_element_from_list(novel_field *f, int i);
+void delete_element_from_list(novel_field*, int i);
 
-void delete_elements_from_list(novel_field *f, int upper, int lower);
+void delete_elements_from_list(novel_field*, int upper, int lower);
+
+void sort_list(novel_field*, int);
 
 #endif

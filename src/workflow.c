@@ -54,38 +54,25 @@ void request_input(){
     printf("\n");
 }
 
-//Testing
 void read_input(int *input, int reason){
     switch(reason){
         case 0:
             printf("\nPlease choose an Action (0-9):");
-            fflush(stdin);
-            scanf("%d",input);
-            fflush(stdin);
-            printf("\n");
             break;
         case 1:
             printf("\nPlease choose an Entry to Delete:");
-            fflush(stdin);
-            scanf("%d",input);
-            fflush(stdin);
-            printf("\n");
             break;
         case 2:
             printf("\nPlease choose a lower bound for Entry to Delete:");
-            fflush(stdin);
-            scanf("%d",input);
-            fflush(stdin);
-            printf("\n");
             break;
         case 3:
             printf("\nPlease choose a upper bound for Entry to Delete:");
-            fflush(stdin);
-            scanf("%d",input);
-            fflush(stdin);
-            printf("\n");
             break;
     }
+    fflush(stdin);
+    scanf("%d",input);
+    fflush(stdin);
+    printf("\n");
 }
 
 void evaluate_input(int *input, novel_field *f){
@@ -114,6 +101,7 @@ void evaluate_input(int *input, novel_field *f){
             delete_elements_from_list(f, upper, lower);
             break;
         case 7:
+            sort_list(f, 0);
             break;
         case 8:
             break;

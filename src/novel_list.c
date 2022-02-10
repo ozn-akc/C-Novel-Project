@@ -1,6 +1,8 @@
 #include "headers/novel_list.h"
 #include "headers/list_swap.h"
 
+int list_length = 0;
+
 void list_init(novel_field *f){
     f->start = 0;
     f->curr = 0;
@@ -40,6 +42,7 @@ void add_current_element_to_list(novel_field *f){
         f->between->post = f->curr;
     }
     f->between = f->curr;
+    list_length++;
 }
 
 void set_list_element(novel_field *f){
@@ -131,15 +134,11 @@ void sort(novel *first, novel_field *f){
 }
 
 void sort_list(novel_field *f, int sortBy){
-    int counter = 0;
+    int counter = 1;
     while(true){
-        f->curr = f->start;
-        for(int i = 0; i<counter-1; i++){
-            f->curr = f->curr->post;
-        }
-        if(!f->curr->post){
+        if(counter == list_length)
             break;
-        }
+        f->curr = f->start;
         sort(f->curr, f);
         counter++;
     }

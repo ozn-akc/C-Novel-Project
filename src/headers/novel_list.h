@@ -26,7 +26,7 @@ typedef struct{
 
 void list_init(novel_field*);
 
-void set_temp_element(novel_field *f, int type, char* value);
+void set_temp_element(novel_field*, int, char*);
 
 void add_current_element_to_list(novel_field*);
 

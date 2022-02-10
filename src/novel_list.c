@@ -87,7 +87,7 @@ void delete_element_from_list(novel_field *f, int i){
     int counter = 1;
     while(f->curr){
         if(counter==i){
-            //Wenn das vorherige nicht existier und das nächste Existiert setze den vorherigen des nächsten auf 0
+            //Wenn das vorherige nicht existiert und das nächste Existiert setze den vorherigen des nächsten auf 0
             if(!f->curr->pre && f->curr->post){
                 //First Element Case
                 f->curr->post->pre = 0;
@@ -119,10 +119,24 @@ void delete_elements_from_list(novel_field *f, int upper, int lower){
     }
 }
 
+void sort(novel *first, novel_field *f){
+    if(first && first->post){
+        if(first->name[0] > first->post->name[0]){
+            printf("\nTesting %s",first->name);
+            swap_items(first, first->post, f);
+            sort(first, f);
+        } else{
+            printf("\nTesting %s",first->name);
+            sort(first->post, f);
+        }
+    }
+}
+
 void sort_list(novel_field *f, int sortBy){
     f->curr = f->start;
-    if(f->curr){
-
+    while(f->curr){
+        sort(f->curr, f);
+        f->curr = f->curr->post;
+        printf("\n");
     }
-    //TODO Sorting Algorithm
 }

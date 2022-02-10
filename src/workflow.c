@@ -90,7 +90,6 @@ void evaluate_input(int *input, novel_field *f){
             hexterminate(f);
             break;
         case 4:
-            f->curr = f->start;
             sort_list(f, 0);
             break;
         case 5:

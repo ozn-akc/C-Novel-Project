@@ -116,19 +116,19 @@ void delete_element_from_list(novel_field *f, int i){
     }
 }
 
-void delete_elements_from_list(novel_field *f, int upper, int lower){
+void delete_elements_from_list(novel_field *f, int lower, int upper){
     for(int i = lower; i <= upper; i++){
         delete_element_from_list(f, lower);
     }
 }
 
-void sort(novel *first, novel_field *f){
+void sort_item(novel *first, novel_field *f){
     if(first && first->post){
         if(first->name[0] > first->post->name[0]){
             swap_items(first, first->post, f);
-            sort(first, f);
+            sort_item(first, f);
         } else{
-            sort(first->post, f);
+            sort_item(first->post, f);
         }
     }
 }
@@ -139,7 +139,50 @@ void sort_list(novel_field *f, int sortBy){
         if(counter == list_length)
             break;
         f->curr = f->start;
-        sort(f->curr, f);
+        sort_item(f->curr, f);
         counter++;
     }
+}
+
+void update_curr_entry(novel_field *f){
+    strcpy(f->curr->name, f->name);
+    strcpy(f->curr->description, f->description);
+    strcpy(f->curr->author, f->author);
+    strcpy(f->curr->rating, f->rating);
+    f->curr->power = f->power;
+}
+
+void print_element_of_curr_entry(novel_field *f, int element){
+    switch(element){
+        case 0:
+            printf("\nCurrent Name: %30s", f->curr->name);
+            break;
+        case 1:
+            printf("\nCurrent Description: %30s", f->curr->description);
+            break;
+        case 2:
+            printf("\nCurrent Author: %30s", f->curr->author);
+            break;
+        case 3:
+            printf("\nCurrent Rating: %30s", f->curr->rating);
+            break;
+        case 4:
+            printf("\nCurrent Power-Rating: %30d", f->curr->power);
+            break;
+    }
+}
+
+void edit_entry(novel_field *f, int entry){
+    char* value;
+    value = malloc(201*sizeof(char));;
+    f->curr = f->start;
+    for(int i= 1; i<entry;i++){
+        f->curr = f->curr->post;
+    }
+    for(int i = 0; i<5; i++){
+        print_element_of_curr_entry(f, i);
+        read_str_input(value, i);
+        set_temp_element(f, i,value);
+    }
+    update_curr_entry(f);
 }

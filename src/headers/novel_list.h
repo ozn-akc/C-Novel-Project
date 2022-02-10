@@ -2,6 +2,7 @@
 #define NOVEL_LIST_H
 
 #include "project.h"
+#include "input.h"
 
 typedef struct m_novel{
     char name[35+1];
@@ -38,9 +39,11 @@ void list_to_string(novel_field*);
 
 void delete_element_from_list(novel_field*, int i);
 
-void delete_elements_from_list(novel_field*, int upper, int lower);
+void delete_elements_from_list(novel_field*, int, int);
 
 void sort_list(novel_field*, int);
+
+void edit_entry(novel_field*, int);
 
 
 #endif

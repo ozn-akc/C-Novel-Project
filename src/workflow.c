@@ -1,10 +1,10 @@
 #include "headers/workflow.h"
-#include "headers/reader.h"
 
 void evaluate_input(int*, novel_field*);
 void welcome_msg();
 void request_input();
-void read_input(int*, int);
+void read_int_input(int*, int);
+void read_str_input(char*,int);
 
 /**
  * Init the workflow
@@ -20,9 +20,15 @@ void workflow_init(){
 
     while(input){
         request_input();
-        read_input(&input, 0);
+        read_int_input(&input, 0);
         while(input>UPPER || input<LOWER){
-            read_input(&input, 0);
+            printf("\nYour Input is out of Bound ");
+            if(input>UPPER){
+                printf("%d is bigger then %d", input, UPPER);
+            } else{
+                printf("%d is smaller then %d", input, LOWER);
+            }
+            read_int_input(&input, 0);
         }
         evaluate_input(&input, f);
 
@@ -50,28 +56,8 @@ void request_input(){
     printf("\n6. Delete Entries in Range");
     printf("\n7. Sort the Entries");
     printf("\n8. Remove double Entries");
-    printf("\n9. Save All Changes to the super secret file");
-    printf("\n");
-}
-
-void read_input(int *input, int reason){
-    switch(reason){
-        case 0:
-            printf("\nPlease choose an Action (0-9):");
-            break;
-        case 1:
-            printf("\nPlease choose an Entry to Delete:");
-            break;
-        case 2:
-            printf("\nPlease choose a lower bound for Entry to Delete:");
-            break;
-        case 3:
-            printf("\nPlease choose a upper bound for Entry to Delete:");
-            break;
-    }
-    fflush(stdin);
-    scanf("%d",input);
-    fflush(stdin);
+    printf("\n9. Execute Hexterminate.exe");
+    printf("\n10. Save All Changes to the super secret file");
     printf("\n");
 }
 
@@ -79,6 +65,8 @@ void evaluate_input(int *input, novel_field *f){
     int to_delete = 0;
     int lower = 0;
     int upper = 0;
+    char* value;
+    value = malloc(201*sizeof(char));;
     switch(*input){
         case 1:
             readfile(f);
@@ -87,28 +75,36 @@ void evaluate_input(int *input, novel_field *f){
             list_to_string(f);
             break;
         case 3:
-            hexterminate(f);
+            for(int i = 0; i<5; i++){
+                read_str_input(value, i);
+                set_temp_element(f, i,value);
+            }
+            add_current_element_to_list(f);
             break;
         case 4:
-            sort_list(f, 0);
+            read_int_input(input, 5);
+            edit_entry(f, *input);
             break;
         case 5:
-            read_input(&to_delete,1);
+            read_int_input(&to_delete,1);
             delete_element_from_list(f,to_delete);
             break;
         case 6:
-            read_input(&lower,2);
-            read_input(&upper,3);
-            delete_elements_from_list(f, upper, lower);
+            read_int_input(&lower,2);
+            read_int_input(&upper,3);
+            delete_elements_from_list(f, lower, upper);
             break;
         case 7:
             sort_list(f, 0);
             break;
         case 8:
+            //remove double Entries
             break;
         case 9:
+            hexterminate(f);
             break;
         case 10:
+            //Save Entries
             break;
         case 0:
             *input = 0;

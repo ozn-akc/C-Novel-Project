@@ -5,6 +5,8 @@
 
 #include "project.h"
 #include "novel_list.h"
+#include "reader.h"
+#include "input.h"
 
 void workflow_init();
 

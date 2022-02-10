@@ -1,4 +1,4 @@
-#include "headers\reader.h"
+#include "headers/reader.h"
 
 void analyse_buffer(novel_field *f, char* buffer);
 void remove_char(char*, char );

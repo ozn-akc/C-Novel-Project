@@ -122,21 +122,25 @@ void delete_elements_from_list(novel_field *f, int upper, int lower){
 void sort(novel *first, novel_field *f){
     if(first && first->post){
         if(first->name[0] > first->post->name[0]){
-            printf("\nTesting %s",first->name);
             swap_items(first, first->post, f);
             sort(first, f);
         } else{
-            printf("\nTesting %s",first->name);
             sort(first->post, f);
         }
     }
 }
 
 void sort_list(novel_field *f, int sortBy){
-    f->curr = f->start;
-    while(f->curr){
+    int counter = 0;
+    while(true){
+        f->curr = f->start;
+        for(int i = 0; i<counter-1; i++){
+            f->curr = f->curr->post;
+        }
+        if(!f->curr->post){
+            break;
+        }
         sort(f->curr, f);
-        f->curr = f->curr->post;
-        printf("\n");
+        counter++;
     }
 }

@@ -1,0 +1,49 @@
+novel:
+    "name": "Hero of Darkness"
+    "description": "Elric gets revived after his suicide, gets special abilities as the Emissary of the GOD OF DARKNESS and continues growing stronger with the alias Kahn."
+    "author": "CrimsonWolfAuthor"
+    "rating": "4.77 (99 ratings)"
+    "power": "474"
+break;
+novel:
+    "name": "Solo Leveling"
+    "description": "Soeng Jin-Woo is the weakest F-RANK Hunter always walking the line between Life and Death after an unfortunate accident he gets a System with the ability to Level up."
+    "author": "Chugong"
+    "rating": "4.51 (7,238 ratings)"
+    "power": "272"
+break;
+novel:
+    "name": "Supreme Magus"
+    "description": "Derek is cursed with an reincarnation Ability, after 3 horrible Lives his 4th reincarnation Cycle brings him to a World of Magic. From infant to Supreme Magus."
+    "author": "Legion20"
+    "rating": "4.82 (5,353 ratings)"
+    "power": "6"
+break;
+novel:
+    "name": "Martial Arts System"
+    "description": "Kurogami Ichiro the World greatest Martial Artist dies protecting a girl form a car crash, after his death he receives a Martial Arts System in a new Martial Arts World."
+    "author": "Alekzi"
+    "rating": "4.35 (70 ratings)"
+    "power": "654"
+break;
+novel:
+    "name": "The Tale of the Void Emperor"
+    "description": "Athan dies killed and gets forcefully reincarnated into a new World in a different Universe, by a higher being. Now he is on his way to become the Void Emperor."
+    "author": "LivingVoid"
+    "rating": "4.64 (150 ratings)"
+    "power": "203"
+break;
+novel:
+    "name": "Black Tech Internet Cafe System"
+    "description": "Some Guy creates an Internet Cafe in a Cultivator World, becomes hella strong relatively humorous. BIG PP. FUNNY. AMONGOS. AMONGUS. SUSSY BAKA."
+    "author": "The Leaf That Goes Against Wate4.53 (2,134 ratings)"
+    "rating": "4.53 (2,134 ratings)"
+    "power": "48"
+break;
+novel:
+    "name": "Monarch of Time"
+    "description": "Shun Long learns the DAO(LAW) of Time and Space and has a fucking black Dragon. HEllA strong, HELLA flexes, and all the BITCHES"
+    "author": "ZeusTheOlympian"
+    "rating": "4.8 (233 ratings)"
+    "power": "873"
+break;

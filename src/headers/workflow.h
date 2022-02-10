@@ -7,6 +7,7 @@
 #include "novel_list.h"
 #include "reader.h"
 #include "input.h"
+#include "writer.h"
 
 void workflow_init();
 

@@ -105,6 +105,7 @@ void evaluate_input(int *input, novel_field *f){
             break;
         case 10:
             //Save Entries
+            writefile(f);
             break;
         case 0:
             *input = 0;

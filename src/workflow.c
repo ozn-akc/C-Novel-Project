@@ -1,6 +1,6 @@
 #include "headers/workflow.h"
 
-void evaluate_input(int*, novel_field*);
+void evaluate_input(novel_field *, int*);
 void welcome_msg();
 void request_input();
 void read_int_input(int*, int);
@@ -11,11 +11,11 @@ void read_str_input(char*,int);
  *
  */
 void workflow_init(){
-    novel_field field, *f = &field;
     int input = -1;
 
-    //init the list
-    list_init(f);
+    novel_field field, *f = &field;
+
+    initialiseList(f);
     welcome_msg();
 
     while(input){
@@ -30,7 +30,7 @@ void workflow_init(){
             }
             read_int_input(&input, 0);
         }
-        evaluate_input(&input, f);
+        evaluate_input(f, &input);
 
     }
 }
@@ -61,7 +61,7 @@ void request_input(){
     printf("\n");
 }
 
-void evaluate_input(int *input, novel_field *f){
+void evaluate_input(novel_field *f, int *input){
     int to_delete = 0;
     int lower = 0;
     int upper = 0;
@@ -72,34 +72,34 @@ void evaluate_input(int *input, novel_field *f){
             readfile(f);
             break;
         case 2:
-            list_to_string(f);
+            listToString(f);
             break;
         case 3:
             for(int i = 0; i<5; i++){
                 read_str_input(value, i);
-                set_temp_element(f, i,value);
+                setTempVar(f, i,value);
             }
-            add_current_element_to_list(f);
+            addCurrent(f);
             break;
         case 4:
             read_int_input(input, 5);
-            edit_entry(f, *input);
+            editEntry(f, *input);
             break;
         case 5:
             read_int_input(&to_delete,1);
-            delete_element_from_list(f,to_delete);
+            deleteFromList(f, to_delete);
             break;
         case 6:
             read_int_input(&lower,2);
             read_int_input(&upper,3);
-            delete_elements_from_list(f, lower, upper);
+            deleteFromListInRange(f, lower, upper);
             break;
         case 7:
-            quick_sort(f, 0, getListLength()-1);
-            //sort_list(f, 0);
+            quickSort(f, 0, getListLength()-1);
+            //bubbleSort(0);
             break;
         case 8:
-            remove_duplicates(f);
+            removeDuplicates(f);
             break;
         case 9:
             hexterminate(f);

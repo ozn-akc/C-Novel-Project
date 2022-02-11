@@ -3,7 +3,6 @@
 
 #include "project.h"
 #include "input.h"
-#include <time.h>
 
 typedef struct m_novel{
     char name[35+1];
@@ -26,31 +25,30 @@ typedef struct{
     novel *between;
 }novel_field;
 
-void list_init(novel_field*);
+void initialiseList(novel_field *);
 
 int getListLength();
 
-void set_temp_element(novel_field*, int, char*);
+void setTempVar(novel_field *, int, char*);
 
-void add_current_element_to_list(novel_field*);
+void setCurrentListElement(novel_field *);
 
-void set_list_element(novel_field*);
+void addCurrent(novel_field *);
 
-void hexterminate(novel_field*);
+void editEntry(novel_field *, int);
 
-void list_to_string(novel_field*);
+void deleteFromList(novel_field *, int i);
 
-void delete_element_from_list(novel_field*, int i);
+void deleteFromListInRange(novel_field *, int, int);
 
-void delete_elements_from_list(novel_field*, int, int);
+void removeDuplicates(novel_field *);
 
-void sort_list(novel_field*, int);
+void bubbleSort(novel_field *, int);
 
-void quick_sort(novel_field *f, int left, int right);
+void quickSort(novel_field *, int left, int right);
 
-void edit_entry(novel_field*, int);
+void hexterminate(novel_field *);
 
-void remove_duplicates(novel_field*);
-
+void listToString(novel_field *);
 
 #endif

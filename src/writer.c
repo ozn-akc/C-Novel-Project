@@ -8,13 +8,13 @@ void writefile(novel_field *f){
     if(!file){
         printf("Datei kann nicht geöffnet werden");
     } else{
-        f->curr = f->start;
-        while(f->curr){
-            writeListElementToFile(file, f->curr);
-            if(f->curr->post){
+        novel *current = f->start;
+        while(current){
+            writeListElementToFile(file, current);
+            if(current->post){
                 fprintf(file, "\n");
             }
-            f->curr = f->curr->post;
+            current = current->post;
         }
     }
     fclose(file);

@@ -31,10 +31,10 @@ void analyse_buffer(novel_field *f, char* buffer){
         remove_char(buffer,'"');
         getType(&type, buffer);
         getValue(value, buffer);
-        set_temp_element(f, type, value);
+        setTempVar(f, type, value);
     }
     if(strcmp(buffer, "break;")==0){
-        add_current_element_to_list(f);
+        addCurrent(f);
     }
 }
 

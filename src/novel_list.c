@@ -1,15 +1,22 @@
 #include "headers/novel_list.h"
 #include "headers/list_swap.h"
 
+void printCurrentElement(novel_field *, int);
+
 int list_length = 0;
 
-void list_init(novel_field *f){
+void initialiseList(novel_field *f){
     f->start = 0;
     f->curr = 0;
     f->between = 0;
 }
 
-void set_temp_element(novel_field *f, int type, char* value){
+int getListLength(){
+    return list_length;
+}
+
+//TODO create Type enum with values 0-4
+void setTempVar(novel_field *f, int type, char* value){
     switch(type) {
         case 0:
             strcpy(f->name, value);
@@ -31,25 +38,27 @@ void set_temp_element(novel_field *f, int type, char* value){
     }
 }
 
-int getListLength(){
-    return list_length;
-}
-
-novel* getNovelinPosition(novel_field *f, int pos){
-    f->curr = f->start; // immer das 0te element
-    int counter = 0;
-    while(f->curr->post){
-        if(counter==pos)
-            break;
-        f->curr = f->curr->post;
-        counter++;
+novel* getNovel(novel_field *f, int pos){
+    novel *counter = f->start;
+    int value = 0;
+    while(value!=pos && counter->post){
+        counter = counter->post;
+        value++;
     }
-    return f->curr;
+    return counter;
 }
 
-void add_current_element_to_list(novel_field *f){
+void setCurrentListElement(novel_field *f){
+    strcpy(f->curr->name,f->name);
+    strcpy(f->curr->description,f->description);
+    strcpy(f->curr->author,f->author);
+    strcpy(f->curr->rating,f->rating);
+    f->curr->power  =               f->power;
+}
+
+void addCurrent(novel_field *f){
     f->curr = (novel*) malloc(sizeof(novel));
-    set_list_element(f);
+    setCurrentListElement(f);
     f->curr->pre = f->between;
     f->curr->post = 0;
     if(!f->between){
@@ -61,84 +70,100 @@ void add_current_element_to_list(novel_field *f){
     list_length++;
 }
 
-void set_list_element(novel_field *f){
-    strcpy(f->curr->name,           f->name);
-    strcpy(f->curr->description,    f->description);
-    strcpy(f->curr->author,         f->author);
-    strcpy(f->curr->rating,         f->rating);
-    f->curr->power  =               f->power;
+void updateCurrentEntry(novel_field *f){
+    strcpy(f->curr->name, f->name);
+    strcpy(f->curr->description, f->description);
+    strcpy(f->curr->author, f->author);
+    strcpy(f->curr->rating, f->rating);
+    f->curr->power = f->power;
 }
 
-void hexterminate(novel_field *f){
-    f->curr = f->start;
-    while(f->curr){
-        printf("\n%-35s ",f->curr->name);
-        printf("Previous   : %8X ",f->curr->pre);
-        printf("Currents   : %8X ",f->curr);
-        printf("Following  : %8X",f->curr->post);
-        f->curr = f->curr->post;
+void editEntry(novel_field *f, int entry){
+    char* value;
+    value = malloc(201*sizeof(char));
+    novel *counter = f->start;
+    for(int i= 1; i<entry;i++){
+        counter = counter->post;
     }
-    printf("\n");
-}
-
-void list_to_string(novel_field *f){
-    f->curr = f->start;
-    int counter = 1;
-    while(f->curr){
-        printf("\n%d)", counter);
-        printf("\n  Name: %-35s",f->curr->name);
-        printf("\n");
-        printf("\n  Description: %s",f->curr->description);
-        printf("\n");
-        printf("\n  Author: %-30s",f->curr->author);
-        printf("\n");
-        printf("\n  Rating: %-50s",f->curr->rating);
-        printf("\n");
-        printf("\n  Power Votes: %-6d",f->curr->power);
-        printf("\n");
-        f->curr = f->curr->post;
-        counter++;
+    for(int i = 0; i<5; i++){
+        printCurrentElement(f, i);
+        read_str_input(value, i);
+        setTempVar(f, i,value);
     }
+    updateCurrentEntry(f);
 }
 
-void delete_element_from_list(novel_field *f, int i){
-    f->curr = f->start;
+//Value without 0
+void deleteFromList(novel_field *f, int i){
+    novel *todelete = f->start;
     int counter = 1;
-    while(f->curr){
+    while(todelete){
         if(counter==i){
             //Wenn das vorherige nicht existiert und das nächste Existiert setze den vorherigen des nächsten auf 0
-            if(!f->curr->pre && f->curr->post){
+            if(!todelete->pre && todelete->post){
                 //First Element Case
-                f->curr->post->pre = 0;
-                f->start = f->curr->post;
-            } else if(!f->curr->post && f->curr->pre){
+                todelete->post->pre = 0;
+                f->start = todelete->post;
+            } else if(!todelete->post && todelete->pre){
                 //Last Element case
-                f->curr->pre->post = 0;
-            }else if(!f->curr->post && !f->curr->pre){
+                todelete->pre->post = 0;
+                f->between = todelete->pre;
+            }else if(!todelete->post && !todelete->pre){
                 //Only Element Case
-                free(f->curr);
-                list_init(f);
+                free(todelete);
+                initialiseList(f);
                 break;
             }
             else {
-                f->curr->pre->post = f->curr->post;
-                f->curr->post->pre = f->curr->pre;
+                todelete->pre->post = todelete->post;
+                todelete->post->pre = todelete->pre;
             }
-            free(f->curr);
+            free(todelete);
             break;
         }
-        f->curr = f->curr->post;
+        todelete = todelete->post;
         counter++;
     }
 }
 
-void delete_elements_from_list(novel_field *f, int lower, int upper){
+void deleteFromListInRange(novel_field *f, int lower, int upper){
     for(int i = lower; i <= upper; i++){
-        delete_element_from_list(f, lower);
+        deleteFromList(f, lower);
     }
 }
 
-void sort_item(novel *first, novel_field *f){
+void removeDuplicates(novel_field *f){
+    novel *dom, *sub;
+    dom = f->start;
+    bool toRemove = false;
+    while(dom){
+        sub = f->start;
+        int i = 1;
+        while(sub){
+            if(sub != dom){
+                if(
+                        strcmp(sub->name, dom->name) == 0 &&
+                        strcmp(sub->description, dom->description) == 0 &&
+                        strcmp(sub->author, dom->author) == 0 &&
+                        strcmp(sub->rating, dom->rating) == 0 &&
+                                sub->power == dom->power
+                        ){
+                    toRemove = true;
+                }
+            }
+            sub = sub->post;
+            if(toRemove){
+                deleteFromList(f, i);
+                i--;
+                toRemove = false;
+            }
+            i++;
+        }
+        dom = dom->post;
+    }
+}
+
+void sortAlgorithm(novel_field *f, novel *first){
     if(first && first->post){
         if(strcmp(first->name, first->post->name)>0){
             swap_items(first, first->post, f);
@@ -147,36 +172,29 @@ void sort_item(novel *first, novel_field *f){
     }
 }
 
-void sort_list(novel_field *f, int sortBy){
-    double time_spent = 0.0;
-
-    clock_t begin = clock();
+void bubbleSort(novel_field *f, int sortBy){
     for(int i = 0; i< list_length-1; i++){
-        f->curr = f->start;
-        while(f->curr->post){
-            sort_item(f->curr, f);
-            f->curr = f->curr->post;
+        novel *current = f->start;
+        while(current->post){
+            sortAlgorithm(f, current);
+            current = current->post;
         }
     }
-    clock_t end = clock();
-    time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("\nListlegth %d hat %f sekunden gedauert", list_length, time_spent);
 }
 
-void quick_sort(novel_field *f, int left, int right){
-    f->curr = f->start;
+void quickSort(novel_field *f, int left, int right){
     int index_left, index_right, median;
     index_left = left;
     index_right = right;
     median = (left+right)/2;
     while(index_left<index_right){
-        while(strcmp(getNovelinPosition(f, index_left)->name, getNovelinPosition(f, median)->name)<0){
+        while(strcmp(getNovel(f, index_left)->name, getNovel(f, median)->name)<0){
             index_left++;
         }
-        while(strcmp(getNovelinPosition(f, median)->name, getNovelinPosition(f, index_right)->name)<0){
+        while(strcmp(getNovel(f, median)->name, getNovel(f, index_right)->name)<0){
             index_right--;
         }
-        swap_items(getNovelinPosition(f,index_left), getNovelinPosition(f,index_right),f);
+        swap_items(getNovel(f, index_left), getNovel(f, index_right), f);
         if(index_left==median){
             median = index_left;
         } else{
@@ -192,23 +210,47 @@ void quick_sort(novel_field *f, int left, int right){
         }
     }
     if(left < median){
-        quick_sort(f, left, median-1);
+        quickSort(f, left, median-1);
     }
     if(right > median){
-        quick_sort(f, median+1, right);
+        quickSort(f, median+1, right);
     }
 }
 
-void update_curr_entry(novel_field *f){
-    strcpy(f->curr->name, f->name);
-    strcpy(f->curr->description, f->description);
-    strcpy(f->curr->author, f->author);
-    strcpy(f->curr->rating, f->rating);
-    f->curr->power = f->power;
+void hexterminate(novel_field *f){
+    novel *counter = f->start;
+    while(counter){
+        printf("\n%-35s ",counter->name);
+        printf("Previous   : %8X ",counter->pre);
+        printf("Currents   : %8X ",counter);
+        printf("Following  : %8X",counter->post);
+        counter = counter->post;
+    }
+    printf("\n");
 }
 
-void print_element_of_curr_entry(novel_field *f, int element){
-    switch(element){
+void listToString(novel_field *f){
+    novel *current = f->start;
+    int counter = 1;
+    while(current){
+        printf("\n%d)", counter);
+        printf("\n  Name: %-35s",current->name);
+        printf("\n");
+        printf("\n  Description: %s",current->description);
+        printf("\n");
+        printf("\n  Author: %-30s",current->author);
+        printf("\n");
+        printf("\n  Rating: %-50s",current->rating);
+        printf("\n");
+        printf("\n  Power Votes: %-6d",current->power);
+        printf("\n");
+        current = current->post;
+        counter++;
+    }
+}
+
+void printCurrentElement(novel_field *f, int type){
+    switch(type){
         case 0:
             printf("\nCurrent Name: %30s", f->curr->name);
             break;
@@ -224,51 +266,5 @@ void print_element_of_curr_entry(novel_field *f, int element){
         case 4:
             printf("\nCurrent Power-Rating: %30d", f->curr->power);
             break;
-    }
-}
-
-void edit_entry(novel_field *f, int entry){
-    char* value;
-    value = malloc(201*sizeof(char));;
-    f->curr = f->start;
-    for(int i= 1; i<entry;i++){
-        f->curr = f->curr->post;
-    }
-    for(int i = 0; i<5; i++){
-        print_element_of_curr_entry(f, i);
-        read_str_input(value, i);
-        set_temp_element(f, i,value);
-    }
-    update_curr_entry(f);
-}
-
-void remove_duplicates(novel_field *f){
-    novel *mainCurrent, *current;
-    mainCurrent = f->start;
-    while(mainCurrent){
-        current = f->start;
-        int i = 1;
-        while(current){
-            if(current != mainCurrent){
-                if(
-                        strcmp(current->name, mainCurrent->name) == 0 &&
-                                strcmp(current->description, mainCurrent->description) == 0 &&
-                                strcmp(current->author, mainCurrent->author) == 0 &&
-                                strcmp(current->rating, mainCurrent->rating) == 0 &&
-                                current->power == mainCurrent->power
-                        ){
-                    current = current->post;
-                    delete_element_from_list(f, i);
-                    i--;
-                } else{
-                    current = current->post;
-                }
-            } else{
-                current = current->post;
-            }
-            i++;
-        }
-
-        mainCurrent = mainCurrent->post;
     }
 }

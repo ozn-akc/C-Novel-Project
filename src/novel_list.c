@@ -123,35 +123,29 @@ void delete_elements_from_list(novel_field *f, int lower, int upper){
 }
 
 void sort_item(novel *first, novel_field *f){
-    int i = 0;
-
     if(first && first->post){
-        while(first->name[i] == first->post->name[i]){
-            i++;
-            if(first->name[i] > first->post->name[i]){
-                break;
-            } else if(first->name[i] < first->post->name[i]){
-                break;
-            }
-        }
-        if(first->name[i] > first->post->name[i]){
+        if(strcmp(first->name, first->post->name)>0){
             swap_items(first, first->post, f);
-            sort_item(first, f);
         } else{
-            sort_item(first->post, f);
         }
     }
 }
 
 void sort_list(novel_field *f, int sortBy){
-    int counter = 1;
-    while(true){
-        if(counter == list_length)
-            break;
+    double time_spent = 0.0;
+
+    clock_t begin = clock();
+    for(int i = 0; i< list_length-1; i++){
         f->curr = f->start;
-        sort_item(f->curr, f);
-        counter++;
+        while(f->curr->post){
+            sort_item(f->curr, f);
+            f->curr = f->curr->post;
+        }
     }
+
+    clock_t end = clock();
+    time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("\nListlegth %d hat %f sekunden gedauert", list_length, time_spent);
 }
 
 void update_curr_entry(novel_field *f){

@@ -69,13 +69,13 @@ void swap_first_second(novel *a, novel *b){
     b->post = a;
     b->post->pre = b;
 }
+
 void swap_last_snd_to_last(novel *a, novel *b){
     a->post = b;
     a->pre = b->pre;
     a->pre->post = a;
     a->post->pre = a;
 
-    //TODO Fehler finden und beheben
     b->post = 0;
     b->pre = a;
     b->pre->post = b;

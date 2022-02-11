@@ -11,6 +11,9 @@ void writefile(novel_field *f){
         f->curr = f->start;
         while(f->curr){
             writeListElementToFile(file, f->curr);
+            if(f->curr->post){
+                fprintf(file, "\n");
+            }
             f->curr = f->curr->post;
         }
     }
@@ -25,5 +28,4 @@ void writeListElementToFile(FILE *file, novel *element){
     fprintf(file, "\n    \"rating\": \"%s\"", element->rating);
     fprintf(file, "\n    \"power\": \"%d\"", element->power);
     fprintf(file, "\nbreak;");
-    fprintf(file, "\n");
 }

@@ -3,6 +3,7 @@
 
 #include "project.h"
 #include "input.h"
+#include <time.h>
 
 typedef struct m_novel{
     char name[35+1];

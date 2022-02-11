@@ -66,7 +66,7 @@ void evaluate_input(int *input, novel_field *f){
     int lower = 0;
     int upper = 0;
     char* value;
-    value = malloc(201*sizeof(char));;
+    value = malloc(201*sizeof(char));
     switch(*input){
         case 1:
             readfile(f);
@@ -98,13 +98,12 @@ void evaluate_input(int *input, novel_field *f){
             sort_list(f, 0);
             break;
         case 8:
-            //remove double Entries
+            //TODO remove double Entries
             break;
         case 9:
             hexterminate(f);
             break;
         case 10:
-            //Save Entries
             writefile(f);
             break;
         case 0:

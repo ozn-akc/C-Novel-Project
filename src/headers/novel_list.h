@@ -28,6 +28,8 @@ typedef struct{
 
 void list_init(novel_field*);
 
+int getListLength();
+
 void set_temp_element(novel_field*, int, char*);
 
 void add_current_element_to_list(novel_field*);
@@ -43,6 +45,8 @@ void delete_element_from_list(novel_field*, int i);
 void delete_elements_from_list(novel_field*, int, int);
 
 void sort_list(novel_field*, int);
+
+void quick_sort(novel_field *f, int left, int right);
 
 void edit_entry(novel_field*, int);
 

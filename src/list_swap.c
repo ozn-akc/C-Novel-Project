@@ -81,6 +81,22 @@ void swap_last_snd_to_last(novel *a, novel *b){
     b->pre->post = b;
 }
 
+void swap_random(novel *a, novel *b){
+    novel *temp_pre = a->pre, *temp_post = a->post;
+
+    a->pre->post = b;
+    a->post->pre = b;
+
+    b->post->pre = a;
+    b->pre->post = a;
+
+    a->pre = b->pre;
+    a->post = b->post;
+
+    b->pre = temp_pre;
+    b->post = temp_post;
+}
+
 void swap_items(novel *first, novel *second, novel_field *f){
     if(!first->pre && first->post){
         if(!second->post && second->pre){
@@ -111,6 +127,9 @@ void swap_items(novel *first, novel *second, novel_field *f){
             swap_last_rando(second, first);
         }else if(first->post == second){
             swap_close(first, second);
+        }
+        else{
+            swap_random(first, second);
         }
     }
 

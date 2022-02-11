@@ -95,7 +95,8 @@ void evaluate_input(int *input, novel_field *f){
             delete_elements_from_list(f, lower, upper);
             break;
         case 7:
-            sort_list(f, 0);
+            quick_sort(f, 0, getListLength()-1);
+            //sort_list(f, 0);
             break;
         case 8:
             //TODO remove double Entries

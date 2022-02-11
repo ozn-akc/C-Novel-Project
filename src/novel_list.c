@@ -31,6 +31,22 @@ void set_temp_element(novel_field *f, int type, char* value){
     }
 }
 
+int getListLength(){
+    return list_length;
+}
+
+novel* getNovelinPosition(novel_field *f, int pos){
+    f->curr = f->start; // immer das 0te element
+    int counter = 0;
+    while(f->curr->post){
+        if(counter==pos)
+            break;
+        f->curr = f->curr->post;
+        counter++;
+    }
+    return f->curr;
+}
+
 void add_current_element_to_list(novel_field *f){
     f->curr = (novel*) malloc(sizeof(novel));
     set_list_element(f);
@@ -142,10 +158,45 @@ void sort_list(novel_field *f, int sortBy){
             f->curr = f->curr->post;
         }
     }
-
     clock_t end = clock();
     time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
     printf("\nListlegth %d hat %f sekunden gedauert", list_length, time_spent);
+}
+
+void quick_sort(novel_field *f, int left, int right){
+    f->curr = f->start;
+    int index_left, index_right, median;
+    index_left = left;
+    index_right = right;
+    median = (left+right)/2;
+    while(index_left<index_right){
+        while(strcmp(getNovelinPosition(f, index_left)->name, getNovelinPosition(f, median)->name)<0){
+            index_left++;
+        }
+        while(strcmp(getNovelinPosition(f, median)->name, getNovelinPosition(f, index_right)->name)<0){
+            index_right--;
+        }
+        swap_items(getNovelinPosition(f,index_left), getNovelinPosition(f,index_right),f);
+        if(index_left==median){
+            median = index_left;
+        } else{
+            if(index_right == median){
+                median = index_right;
+            }
+        }
+        if(index_left<median){
+            index_left++;
+        }
+        if(index_right>median){
+            index_right--;
+        }
+    }
+    if(left < median-1){
+        quick_sort(f, left, median-1);
+    }
+    if(right > median+1){
+        quick_sort(f, median+1, right);
+    }
 }
 
 void update_curr_entry(novel_field *f){

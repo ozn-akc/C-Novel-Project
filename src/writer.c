@@ -1,6 +1,6 @@
 #include "headers/writer.h"
 
-void writefile(novel_field *f){
+void writeFile(novel_field *f){
     FILE *file;
     file = fopen(DATAFILE,"w");
     char buffer[250+1];

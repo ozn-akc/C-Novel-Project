@@ -1,7 +1,8 @@
 #include "headers/input.h"
 #include "headers/project.h"
 
-void read_int_input(int *input, int reason){
+//TODO reason
+void readInt(int *input, int reason){
     switch(reason){
         case 0:
             printf("\nPlease choose an Action (0-10):");
@@ -23,29 +24,15 @@ void read_int_input(int *input, int reason){
             break;
     }
     fflush(stdin);
-    scanf("%d",input);
+    scanf("%d", input);
     fflush(stdin);
 }
 
-void read_str_input(char* input, int reason){
-    switch(reason){
-        case 0:
-            printf("\nPlease enter the Name of the Novel:");
-            break;
-        case 1:
-            printf("\nPlease enter the Description of the Novel:");
-            break;
-        case 2:
-            printf("\nPlease enter the Author of the Novel:");
-            break;
-        case 3:
-            printf("\nPlease enter the Rating of the Novel:");
-            break;
-        case 4:
-            printf("\nPlease enter the Power-Rating of the Novel:");
-            break;
-    }
+void readString(char* input, int type){
+    char* reason;
+    strcpy(reason, mapTypeToString(type));
+    printf("\nPlease enter the %s of the Novel: ", reason);
     fflush(stdin);
-    scanf("%s",input);
+    gets(input);
     fflush(stdin);
 }

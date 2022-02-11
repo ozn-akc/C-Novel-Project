@@ -1,12 +1,12 @@
 #include "headers/reader.h"
 
-void analyse_buffer(novel_field *f, char* buffer);
-void remove_char(char*, char );
-void remove_first_char(char* buffer, char rmchar);
+void analyseBuffer(novel_field *f, char* buffer);
+void removeChar(char*, char );
+void removeFirstChar(char* buffer, char rmchar);
 void getType(int*, char* );
 void getValue(char*, char* );
 
-void readfile(novel_field *f){
+void readFile(novel_field *f){
     FILE *file;
     file = fopen(DATAFILE,"r");
     char buffer[250+1];
@@ -17,18 +17,18 @@ void readfile(novel_field *f){
         while(!feof(file)){
             fgets(buffer, 250, file);
             buffer[strcspn(buffer, "\n")] = 0;
-            analyse_buffer(f, buffer);
+            analyseBuffer(f, buffer);
         }
     }
     fclose(file);
 }
 
-void analyse_buffer(novel_field *f, char* buffer){
+void analyseBuffer(novel_field *f, char* buffer){
     if(!(strcmp(buffer, "novel:")==0) && !(strcmp(buffer, "break;")==0)){
         int type = 0;
         char* value;
         value = malloc(250*sizeof(char));
-        remove_char(buffer,'"');
+        removeChar(buffer,'"');
         getType(&type, buffer);
         getValue(value, buffer);
         setTempVar(f, type, value);
@@ -38,12 +38,12 @@ void analyse_buffer(novel_field *f, char* buffer){
     }
 }
 
-void remove_char(char* buffer, char rmchar){
+void removeChar(char* buffer, char rmChar){
     char* value;
     value = malloc(sizeof(char));
     int space = 0;
     for(int i = 0; strlen(buffer); i++){
-        if(buffer[i]!=rmchar){
+        if(buffer[i]!=rmChar){
             value = realloc(value,(space+2)*sizeof(char));
             value[space] = buffer[i];
             space++;
@@ -55,19 +55,19 @@ void remove_char(char* buffer, char rmchar){
     strcpy(buffer, value);
 }
 
-void remove_first_char(char* buffer, char rmchar){
+void removeFirstChar(char* buffer, char rmChar){
     char* value;
     value = malloc(sizeof(char));
     int space = 0;
-    bool firstremoved = false;
+    bool firstRemoved = false;
     for(int i = 0; strlen(buffer); i++){
-        if(buffer[i]!=rmchar || firstremoved){
+        if(buffer[i]!=rmChar || firstRemoved){
             value = realloc(value,(space+2)*sizeof(char));
             value[space] = buffer[i];
             space++;
         }
-        if(buffer[i]==rmchar){
-            firstremoved = true;
+        if(buffer[i]==rmChar){
+            firstRemoved = true;
         }
         if(buffer[i]==0){
             break;
@@ -108,8 +108,8 @@ void getType(int *result, char* buffer){
 
 void getValue(char* output, char* buffer){
     strcpy(output, strchr(buffer, ':'));
-    remove_char(output, ':');
+    removeChar(output, ':');
     while(output[0]==' ')
-        remove_first_char(output, ' ');
+        removeFirstChar(output, ' ');
 }
 

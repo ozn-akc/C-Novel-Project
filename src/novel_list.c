@@ -3,7 +3,7 @@
 
 void printCurrentElement(novel_field *, int);
 
-int list_length = 0;
+int listLength = 0;
 
 void initialiseList(novel_field *f){
     f->start = 0;
@@ -12,25 +12,25 @@ void initialiseList(novel_field *f){
 }
 
 int getListLength(){
-    return list_length;
+    return listLength;
 }
 
 //TODO create Type enum with values 0-4
 void setTempVar(novel_field *f, int type, char* value){
     switch(type) {
-        case 0:
+        case NAME:
             strcpy(f->name, value);
             break;
-        case 1:
+        case DESCRIPTION:
             strcpy(f->description, value);
             break;
-        case 2:
+        case AUTHOR:
             strcpy(f->author, value);
             break;
-        case 3:
+        case RATING:
             strcpy(f->rating, value);
             break;
-        case 4:
+        case POWER:
             f->power = atoi(value);
             break;
         default:
@@ -67,7 +67,7 @@ void addCurrent(novel_field *f){
         f->between->post = f->curr;
     }
     f->between = f->curr;
-    list_length++;
+    listLength++;
 }
 
 void updateCurrentEntry(novel_field *f){
@@ -87,7 +87,7 @@ void editEntry(novel_field *f, int entry){
     }
     for(int i = 0; i<5; i++){
         printCurrentElement(f, i);
-        read_str_input(value, i);
+        readString(value, i);
         setTempVar(f, i,value);
     }
     updateCurrentEntry(f);
@@ -124,6 +124,7 @@ void deleteFromList(novel_field *f, int i){
         todelete = todelete->post;
         counter++;
     }
+    listLength--;
 }
 
 void deleteFromListInRange(novel_field *f, int lower, int upper){
@@ -173,9 +174,11 @@ void sortAlgorithm(novel_field *f, novel *first){
 }
 
 void bubbleSort(novel_field *f, int sortBy){
-    for(int i = 0; i< list_length-1; i++){
+    for(int i = 0; i< listLength-1; i++){
         novel *current = f->start;
-        while(current->post){
+        while(current){
+            if(!current->post)
+                break;
             sortAlgorithm(f, current);
             current = current->post;
         }
@@ -251,7 +254,7 @@ void listToString(novel_field *f){
 
 void printCurrentElement(novel_field *f, int type){
     switch(type){
-        case 0:
+        case NAME:
             printf("\nCurrent Name: %30s", f->curr->name);
             break;
         case 1:

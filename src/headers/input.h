@@ -1,7 +1,10 @@
 #ifndef NOVEL_PROJECT_INPUT_H
 #define NOVEL_PROJECT_INPUT_H
 
-void read_int_input(int*, int);
-void read_str_input(char* , int);
+#include "enums.h"
+
+void readInt(int*, int);
+
+void readString(char* , int);
 
 #endif //NOVEL_PROJECT_INPUT_H

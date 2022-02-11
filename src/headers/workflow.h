@@ -9,6 +9,6 @@
 #include "input.h"
 #include "writer.h"
 
-void workflow_init();
+void initialiseWorkflow();
 
 #endif

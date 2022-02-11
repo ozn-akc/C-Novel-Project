@@ -6,6 +6,6 @@
 
 #define DATAFILE "../data/novel_data.txt"
 
-void readfile(novel_field*);
+void readFile(novel_field*);
 
 #endif //NOVEL_PROJECT_READER_H

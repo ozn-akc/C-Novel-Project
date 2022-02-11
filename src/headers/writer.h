@@ -6,7 +6,7 @@
 
 #define DATAFILE "../data/novel_data.txt"
 
-void writefile(novel_field*);
+void writeFile(novel_field*);
 
 void writeListElementToFile(FILE*, novel*);
 

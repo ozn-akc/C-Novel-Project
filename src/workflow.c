@@ -1,26 +1,24 @@
 #include "headers/workflow.h"
 
-void evaluate_input(novel_field *, int*);
-void welcome_msg();
-void request_input();
-void read_int_input(int*, int);
-void read_str_input(char*,int);
+void evaluateInput(novel_field *, int*);
+void welcomeMsg();
+void requestInput();
 
 /**
  * Init the workflow
  *
  */
-void workflow_init(){
+void initialiseWorkflow(){
     int input = -1;
 
     novel_field field, *f = &field;
 
     initialiseList(f);
-    welcome_msg();
+    welcomeMsg();
 
     while(input){
-        request_input();
-        read_int_input(&input, 0);
+        requestInput();
+        readInt(&input, 0);
         while(input>UPPER || input<LOWER){
             printf("\nYour Input is out of Bound ");
             if(input>UPPER){
@@ -28,14 +26,14 @@ void workflow_init(){
             } else{
                 printf("%d is smaller then %d", input, LOWER);
             }
-            read_int_input(&input, 0);
+            readInt(&input, 0);
         }
-        evaluate_input(f, &input);
+        evaluateInput(f, &input);
 
     }
 }
 
-void welcome_msg(){
+void welcomeMsg(){
     printf("\nWelcome to the Novel Library of Seven!");
     printf("\nThis is a magical place that gives you an overview over Sevens favorite Webnovels from webnovel.com!");
     printf("\nHere you have full control over all these Entries.");
@@ -45,7 +43,7 @@ void welcome_msg(){
     printf("\n");
 }
 
-void request_input(){
+void requestInput(){
     printf("\nThere are many Action you can choose from:");
     printf("\n0. Your Job is done here and you want to stop");
     printf("\n1. Read the Data from the super secret file");
@@ -61,7 +59,7 @@ void request_input(){
     printf("\n");
 }
 
-void evaluate_input(novel_field *f, int *input){
+void evaluateInput(novel_field *f, int *input){
     int to_delete = 0;
     int lower = 0;
     int upper = 0;
@@ -69,34 +67,34 @@ void evaluate_input(novel_field *f, int *input){
     value = malloc(201*sizeof(char));
     switch(*input){
         case 1:
-            readfile(f);
+            readFile(f);
             break;
         case 2:
             listToString(f);
             break;
         case 3:
             for(int i = 0; i<5; i++){
-                read_str_input(value, i);
+                readString(value, i);
                 setTempVar(f, i,value);
             }
             addCurrent(f);
             break;
         case 4:
-            read_int_input(input, 5);
+            readInt(input, 5);
             editEntry(f, *input);
             break;
         case 5:
-            read_int_input(&to_delete,1);
+            readInt(&to_delete,1);
             deleteFromList(f, to_delete);
             break;
         case 6:
-            read_int_input(&lower,2);
-            read_int_input(&upper,3);
+            readInt(&lower,2);
+            readInt(&upper,3);
             deleteFromListInRange(f, lower, upper);
             break;
         case 7:
-            quickSort(f, 0, getListLength()-1);
-            //bubbleSort(0);
+            //quickSort(f, 0, getListLength()-1);
+            bubbleSort(f, 0);
             break;
         case 8:
             removeDuplicates(f);
@@ -105,7 +103,7 @@ void evaluate_input(novel_field *f, int *input){
             hexterminate(f);
             break;
         case 10:
-            writefile(f);
+            writeFile(f);
             break;
         case 0:
             *input = 0;

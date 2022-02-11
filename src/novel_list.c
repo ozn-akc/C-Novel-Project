@@ -123,8 +123,18 @@ void delete_elements_from_list(novel_field *f, int lower, int upper){
 }
 
 void sort_item(novel *first, novel_field *f){
+    int i = 0;
+
     if(first && first->post){
-        if(first->name[0] > first->post->name[0]){
+        while(first->name[i] == first->post->name[i]){
+            i++;
+            if(first->name[i] > first->post->name[i]){
+                break;
+            } else if(first->name[i] < first->post->name[i]){
+                break;
+            }
+        }
+        if(first->name[i] > first->post->name[i]){
             swap_items(first, first->post, f);
             sort_item(first, f);
         } else{

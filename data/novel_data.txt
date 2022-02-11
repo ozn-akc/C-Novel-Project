@@ -15,9 +15,9 @@ break;
 novel:
     "name": "Supreme Magus"
     "description": "Derek is cursed with an reincarnation Ability, after 3 horrible Lives his 4th reincarnation Cycle brings him to a World of Magic. From infant to Supreme Magus."
-    "author": " Legion20"
+    "author": "Legion20"
     "rating": "4.82 (5,353 ratings)"
-    "power": "6.308"
+    "power": "6"
 break;
 novel:
     "name": "Martial Arts System"
@@ -27,7 +27,7 @@ novel:
     "power": "654"
 break;
 novel:
-    "name":"The Tale of the Void Emperor"
+    "name": "The Tale of the Void Emperor"
     "description": "Athan dies killed and gets forcefully reincarnated into a new World in a different Universe, by a higher being. Now he is on his way to become the Void Emperor."
     "author": "LivingVoid"
     "rating": "4.64 (150 ratings)"
@@ -36,7 +36,7 @@ break;
 novel:
     "name": "Black Tech Internet Cafe System"
     "description": "Some Guy creates an Internet Cafe in a Cultivator World, becomes hella strong relatively humorous. BIG PP. FUNNY. AMONGOS. AMONGUS. SUSSY BAKA."
-    "author": "The Leaf That Goes Against Water"
+    "author": "The Leaf That Goes Against Wate4.53 (2,134 ratings)"
     "rating": "4.53 (2,134 ratings)"
     "power": "48"
 break;

@@ -99,7 +99,7 @@ void evaluate_input(int *input, novel_field *f){
             //sort_list(f, 0);
             break;
         case 8:
-            //TODO remove double Entries
+            remove_duplicates(f);
             break;
         case 9:
             hexterminate(f);

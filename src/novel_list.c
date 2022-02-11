@@ -184,17 +184,17 @@ void quick_sort(novel_field *f, int left, int right){
                 median = index_right;
             }
         }
-        if(index_left<median){
+        if(index_left<=median){
             index_left++;
         }
-        if(index_right>median){
+        if(index_right>=median){
             index_right--;
         }
     }
-    if(left < median-1){
+    if(left < median){
         quick_sort(f, left, median-1);
     }
-    if(right > median+1){
+    if(right > median){
         quick_sort(f, median+1, right);
     }
 }
@@ -240,4 +240,35 @@ void edit_entry(novel_field *f, int entry){
         set_temp_element(f, i,value);
     }
     update_curr_entry(f);
+}
+
+void remove_duplicates(novel_field *f){
+    novel *mainCurrent, *current;
+    mainCurrent = f->start;
+    while(mainCurrent){
+        current = f->start;
+        int i = 1;
+        while(current){
+            if(current != mainCurrent){
+                if(
+                        strcmp(current->name, mainCurrent->name) == 0 &&
+                                strcmp(current->description, mainCurrent->description) == 0 &&
+                                strcmp(current->author, mainCurrent->author) == 0 &&
+                                strcmp(current->rating, mainCurrent->rating) == 0 &&
+                                current->power == mainCurrent->power
+                        ){
+                    current = current->post;
+                    delete_element_from_list(f, i);
+                    i--;
+                } else{
+                    current = current->post;
+                }
+            } else{
+                current = current->post;
+            }
+            i++;
+        }
+
+        mainCurrent = mainCurrent->post;
+    }
 }

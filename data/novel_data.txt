@@ -47,10 +47,3 @@ novel:
     "rating": "4.8 (233 ratings)"
     "power": "873"
 break;
-novel:
-    "name": "Monarch of Time"
-    "description": "Shun Long learns the DAO(LAW) of Time and Space and has a fucking black Dragon. HEllA strong, HELLA flexes, and all the BITCHES"
-    "author": "ZeusTheOlympian"
-    "rating": "4.8 (233 ratings)"
-    "power": "873"
-break;

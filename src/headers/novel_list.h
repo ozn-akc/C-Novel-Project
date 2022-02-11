@@ -50,5 +50,7 @@ void quick_sort(novel_field *f, int left, int right);
 
 void edit_entry(novel_field*, int);
 
+void remove_duplicates(novel_field*);
+
 
 #endif

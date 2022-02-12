@@ -1,23 +1,21 @@
 #include "headers/enums.h"
 
 char* mapTypeToString(int type){
-    char* str;
     switch(type){
         case NAME:
-            strcpy(str, "Name");
+            return "Name";
             break;
         case DESCRIPTION:
-            strcpy(str, "Description");
+            return "Description";
             break;
         case AUTHOR:
-            strcpy(str, "Author");
+            return "Author";
             break;
         case RATING:
-            strcpy(str, "Rating");
+            return "Rating";
             break;
         case POWER:
-            strcpy(str, "Power-Rating");
+            return "Power-Rating";
             break;
     }
-    return str;
 }

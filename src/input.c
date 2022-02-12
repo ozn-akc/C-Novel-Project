@@ -1,7 +1,6 @@
 #include "headers/input.h"
 #include "headers/project.h"
 
-//TODO reason
 void readInt(int *input, int reason){
     switch(reason){
         case 0:
@@ -29,9 +28,7 @@ void readInt(int *input, int reason){
 }
 
 void readString(char* input, int type){
-    char* reason;
-    strcpy(reason, mapTypeToString(type));
-    printf("\nPlease enter the %s of the Novel: ", reason);
+    printf("\nPlease enter the %s of the Novel: ", mapTypeToString(type));
     fflush(stdin);
     gets(input);
     fflush(stdin);

@@ -87,13 +87,12 @@ void editEntry(novel_field *f, int entry){
     }
     for(int i = 0; i<5; i++){
         printCurrentElement(f, i);
-        readString(value, i);
+        inputString(value, i);
         setTempVar(f, i,value);
     }
     updateCurrentEntry(f);
 }
 
-//Value without 0
 void deleteFromList(novel_field *f, int i){
     novel *todelete = f->start;
     int counter = 1;
@@ -257,16 +256,16 @@ void printCurrentElement(novel_field *f, int type){
         case NAME:
             printf("\nCurrent Name: %30s", f->curr->name);
             break;
-        case 1:
+        case DESCRIPTION:
             printf("\nCurrent Description: %30s", f->curr->description);
             break;
-        case 2:
+        case AUTHOR:
             printf("\nCurrent Author: %30s", f->curr->author);
             break;
-        case 3:
+        case RATING:
             printf("\nCurrent Rating: %30s", f->curr->rating);
             break;
-        case 4:
+        case POWER:
             printf("\nCurrent Power-Rating: %30d", f->curr->power);
             break;
     }

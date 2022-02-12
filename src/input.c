@@ -1,25 +1,28 @@
 #include "headers/input.h"
 #include "headers/project.h"
 
-void readInt(int *input, int reason){
+void inputInt(int *input, int reason){
     switch(reason){
-        case 0:
+        case ACTION:
             printf("\nPlease choose an Action (0-10):");
             break;
-        case 1:
+        case DELETE:
             printf("\nPlease choose an Entry to Delete:");
             break;
-        case 2:
+        case DELETE_LOWER:
             printf("\nPlease choose a lower bound for Entry to Delete:");
             break;
-        case 3:
+        case DELETE_UPPER:
             printf("\nPlease choose a upper bound for Entry to Delete:");
             break;
-        case 4:
+        case POWER_REASON:
             printf("\nPlease enter the Power-Rating of the Novel:");
             break;
-        case 5:
+        case EDIT:
             printf("\nPlease choose an Entry to Edit:");
+            break;
+        case SORT:
+            printf("\nPlease choose a Category to sort by:");
             break;
     }
     fflush(stdin);
@@ -27,7 +30,7 @@ void readInt(int *input, int reason){
     fflush(stdin);
 }
 
-void readString(char* input, int type){
+void inputString(char* input, int type){
     printf("\nPlease enter the %s of the Novel: ", mapTypeToString(type));
     fflush(stdin);
     gets(input);

@@ -4,7 +4,7 @@
 #include <string.h>
 
 
-enum type{NAME = 0, DESCRIPTION, AUTHOR, RATING, POWER};
+enum type{NAME = 0, DESCRIPTION = 1, AUTHOR = 2, RATING = 3, POWER = 4, ACTION, DELETE, DELETE_LOWER, DELETE_UPPER, POWER_REASON, EDIT, SORT};
 
 char* mapTypeToString(int type);
 

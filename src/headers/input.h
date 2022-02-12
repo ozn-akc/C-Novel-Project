@@ -3,8 +3,8 @@
 
 #include "enums.h"
 
-void readInt(int*, int);
+void inputInt(int*, int);
 
-void readString(char* , int);
+void inputString(char* , int);
 
 #endif //NOVEL_PROJECT_INPUT_H

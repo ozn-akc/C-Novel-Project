@@ -43,7 +43,7 @@ void deleteFromListInRange(novel_field *, int, int);
 
 void removeDuplicates(novel_field *);
 
-void bubbleSort(novel_field *, int);
+void bubbleSort(novel_field *, int, int);
 
 void quickSort(novel_field *, int left, int right);
 

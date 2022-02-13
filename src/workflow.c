@@ -36,6 +36,7 @@ void evaluateInput(novel_field *f, int *input){
     int to_delete = 0;
     int to_edit = -1;
     int sortBy = 0;
+    int order = -1;
     int lower = 0;
     int upper = 0;
     char* value;
@@ -73,8 +74,9 @@ void evaluateInput(novel_field *f, int *input){
             for(int i = 0; i<5; i++)
                 outputPossibleSortBys(i);
             inputInt(&sortBy, SORT);
+            inputInt(&order, ORDER);
             //quickSort(f, 0, getListLength()-1);
-            bubbleSort(f, 0);
+            bubbleSort(f, sortBy, order);
             break;
         case 8:
             removeDuplicates(f);

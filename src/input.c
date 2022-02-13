@@ -24,6 +24,9 @@ void inputInt(int *input, int reason){
         case SORT:
             printf("\nPlease choose a Category to sort by:");
             break;
+        case ORDER:
+            printf("\nPlease choose in which order you want the List to be sorted Asc(0) or Desc(1):");
+            break;
     }
     fflush(stdin);
     scanf("%d", input);

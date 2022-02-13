@@ -163,22 +163,64 @@ void removeDuplicates(novel_field *f){
     }
 }
 
-void sortAlgorithm(novel_field *f, novel *first){
+void sortAlgorithm(novel_field *f, novel *first, int sortBy, int order){
+
+    bool value = false;
     if(first && first->post){
-        if(strcmp(first->name, first->post->name)>0){
+        switch(order){
+            case 0:
+                switch (sortBy) {
+                    case NAME:
+                        value = strcmp(first->name, first->post->name)>0;
+                        break;
+                    case DESCRIPTION:
+                        value = strcmp(first->description, first->post->description)>0;
+                        break;
+                    case AUTHOR:
+                        value = strcmp(first->author, first->post->author)>0;
+                        break;
+                    case RATING:
+                        value = strcmp(first->rating, first->post->rating)>0;
+                        break;
+                    case POWER:
+                        value = first->power > first->post->power;
+                        break;
+                }
+                break;
+            case 1:
+                switch (sortBy) {
+                    case NAME:
+                        value = strcmp(first->name, first->post->name)<0;
+                        break;
+                    case DESCRIPTION:
+                        value = strcmp(first->description, first->post->description)<0;
+                        break;
+                    case AUTHOR:
+                        value = strcmp(first->author, first->post->author)<0;
+                        break;
+                    case RATING:
+                        value = strcmp(first->rating, first->post->rating)<0;
+                        break;
+                    case POWER:
+                        value = first->power < first->post->power;
+                        break;
+                }
+                break;
+        }
+        if(value){
             swap_items(first, first->post, f);
         } else{
         }
     }
 }
 
-void bubbleSort(novel_field *f, int sortBy){
+void bubbleSort(novel_field *f, int sortBy, int order){
     for(int i = 0; i< listLength-1; i++){
         novel *current = f->start;
         while(current){
             if(!current->post)
                 break;
-            sortAlgorithm(f, current);
+            sortAlgorithm(f, current, sortBy, order);
             current = current->post;
         }
     }

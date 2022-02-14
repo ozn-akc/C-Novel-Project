@@ -17,6 +17,7 @@ void readFile(novel_field *f){
         while(!feof(file)){
             fgets(buffer, 250, file);
             buffer[strcspn(buffer, "\n")] = 0;
+            decrypt(buffer);
             analyseBuffer(f, buffer);
         }
     }

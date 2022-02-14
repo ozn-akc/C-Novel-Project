@@ -3,8 +3,6 @@
 void writeFile(novel_field *f){
     FILE *file;
     file = fopen(DATAFILE,"w");
-    char buffer[250+1];
-    strcpy(buffer,"");
     if(!file){
         printf("Datei kann nicht geöffnet werden");
     } else{
@@ -21,11 +19,32 @@ void writeFile(novel_field *f){
 }
 
 void writeListElementToFile(FILE *file, novel *element){
-    fprintf(file, "novel:");
-    fprintf(file, "\n    \"name\": \"%s\"", element->name);
-    fprintf(file, "\n    \"description\": \"%s\"", element->description);
-    fprintf(file, "\n    \"author\": \"%s\"", element->author);
-    fprintf(file, "\n    \"rating\": \"%s\"", element->rating);
-    fprintf(file, "\n    \"power\": \"%d\"", element->power);
-    fprintf(file, "\nbreak;");
+    char str[250];
+    snprintf(str, 250, "%s", "novel:");
+    encrypt(str);
+    fprintf(file, str);
+
+    snprintf(str, 250, "    \"name\": \"%s\"", element->name);
+    encrypt(str);
+    fprintf(file,"\n%s", str);
+
+    snprintf(str, 250, "    \"description\": \"%s\"", element->description);
+    encrypt(str);
+    fprintf(file, "\n%s",str);
+
+    snprintf(str, 250, "\"author\": \"%s\"", element->author);
+    encrypt(str);
+    fprintf(file, "\n%s",str);
+
+    snprintf(str, 250, "\"rating\": \"%s\"", element->rating);
+    encrypt(str);
+    fprintf(file, "\n%s",str);
+
+    snprintf(str, 250,"\"power\": \"%d\"", element->power);
+    encrypt(str);
+    fprintf(file, "\n%s",str);
+
+    snprintf(str, 250, "%s", "break;");
+    encrypt(str);
+    fprintf(file, "\n%s",str);
 }

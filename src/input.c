@@ -37,7 +37,7 @@ void inputString(char* input, int type){
     strcpy(input, "");
     printf("\nPlease enter the %s of the Novel: ", mapTypeToString(type));
     fflush(stdin);
-    while(input[0] ==0){
+    while(input[0] == 0){
         gets(input);
     }
     fflush(stdin);

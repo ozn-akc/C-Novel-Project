@@ -171,16 +171,16 @@ void sortAlgorithm(novel_field *f, novel *first, int sortBy, int order){
             case 0:
                 switch (sortBy) {
                     case NAME:
-                        value = strcmp(first->name, first->post->name)>0;
+                        value = strcasecmp(first->name, first->post->name)>0;
                         break;
                     case DESCRIPTION:
-                        value = strcmp(first->description, first->post->description)>0;
+                        value = strcasecmp(first->description, first->post->description)>0;
                         break;
                     case AUTHOR:
-                        value = strcmp(first->author, first->post->author)>0;
+                        value = strcasecmp(first->author, first->post->author)>0;
                         break;
                     case RATING:
-                        value = strcmp(first->rating, first->post->rating)>0;
+                        value = strcasecmp(first->rating, first->post->rating)>0;
                         break;
                     case POWER:
                         value = first->power > first->post->power;
@@ -190,16 +190,16 @@ void sortAlgorithm(novel_field *f, novel *first, int sortBy, int order){
             case 1:
                 switch (sortBy) {
                     case NAME:
-                        value = strcmp(first->name, first->post->name)<0;
+                        value = strcasecmp(first->name, first->post->name)<0;
                         break;
                     case DESCRIPTION:
-                        value = strcmp(first->description, first->post->description)<0;
+                        value = strcasecmp(first->description, first->post->description)<0;
                         break;
                     case AUTHOR:
-                        value = strcmp(first->author, first->post->author)<0;
+                        value = strcasecmp(first->author, first->post->author)<0;
                         break;
                     case RATING:
-                        value = strcmp(first->rating, first->post->rating)<0;
+                        value = strcasecmp(first->rating, first->post->rating)<0;
                         break;
                     case POWER:
                         value = first->power < first->post->power;

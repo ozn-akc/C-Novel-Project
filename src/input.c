@@ -34,8 +34,11 @@ void inputInt(int *input, int reason){
 }
 
 void inputString(char* input, int type){
+    strcpy(input, "");
     printf("\nPlease enter the %s of the Novel: ", mapTypeToString(type));
     fflush(stdin);
-    gets(input);
+    while(input[0] == 0){
+        gets(input);
+    }
     fflush(stdin);
 }

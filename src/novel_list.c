@@ -94,35 +94,26 @@ void editEntry(novel_field *f, int entry){
 }
 
 void deleteFromList(novel_field *f, int i){
-    novel *todelete = f->start;
-    int counter = 1;
-    while(todelete){
-        if(counter==i){
-            //Wenn das vorherige nicht existiert und das nächste Existiert setze den vorherigen des nächsten auf 0
-            if(!todelete->pre && todelete->post){
-                //First Element Case
-                todelete->post->pre = 0;
-                f->start = todelete->post;
-            } else if(!todelete->post && todelete->pre){
-                //Last Element case
-                todelete->pre->post = 0;
-                f->between = todelete->pre;
-            }else if(!todelete->post && !todelete->pre){
-                //Only Element Case
-                free(todelete);
-                initialiseList(f);
-                break;
-            }
-            else {
-                todelete->pre->post = todelete->post;
-                todelete->post->pre = todelete->pre;
-            }
-            free(todelete);
-            break;
-        }
-        todelete = todelete->post;
-        counter++;
+    novel *todelete = getNovel(f, i);
+    //Wenn das vorherige nicht existiert und das nächste Existiert setze den vorherigen des nächsten auf 0
+    if(!todelete->pre && todelete->post){
+        //First Element Case
+        todelete->post->pre = 0;
+        f->start = todelete->post;
+    } else if(!todelete->post && todelete->pre){
+        //Last Element case
+        todelete->pre->post = 0;
+        f->between = todelete->pre;
+    }else if(!todelete->post && !todelete->pre){
+        //Only Element Case
+        free(todelete);
+        initialiseList(f);
     }
+    else {
+        todelete->pre->post = todelete->post;
+        todelete->post->pre = todelete->pre;
+    }
+    free(todelete);
     listLength--;
 }
 

@@ -82,7 +82,7 @@ void editEntry(novel_field *f, int entry){
     char* value;
     value = malloc(201*sizeof(char));
     novel *counter = f->start;
-    for(int i= 1; i<entry;i++){
+    for(int i= 1; i<=entry;i++){
         counter = counter->post;
     }
     for(int i = 0; i<5; i++){
@@ -268,16 +268,20 @@ void listToString(novel_field *f){
     novel *current = f->start;
     int counter = 1;
     while(current){
-        printf("\n%d)", counter);
-        printf("\n  Name: %-35s",current->name);
-        printf("\n");
-        printf("\n  Description: %s",current->description);
-        printf("\n");
-        printf("\n  Author: %-30s",current->author);
-        printf("\n");
-        printf("\n  Rating: %-50s",current->rating);
-        printf("\n");
-        printf("\n  Power Votes: %-6d",current->power);
+        if(counter/10 == 0){
+            printf("\n%d%-4s", counter, ")");
+        } else if(counter/10 == 1){
+            printf("\n%d%-3s", counter, ")");
+        }else if(counter/10 == 2){
+            printf("\n%d%-2s", counter, ")");
+        }else{
+            printf("\n%d%-1s", counter, ")");
+        }
+        printf("Name: %-35s",current->name);
+        printf("\n     Description: %s",current->description);
+        printf("\n     Author: %-30s",current->author);
+        printf("\n     Rating: %-50s",current->rating);
+        printf("\n     Power Votes: %-6d",current->power);
         printf("\n");
         current = current->post;
         counter++;

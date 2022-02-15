@@ -12,16 +12,16 @@ void outputWelcomeMsg(){
 
 void outputPossibleActions(){
     printf("\nThere are many Action you can choose from:");
-    printf("\n0. Your Job is done here and you want to stop");
-    printf("\n1. Read the Data from the super secret file");
-    printf("\n2. Show all The Entries");
-    printf("\n3. Create a new Entry");
-    printf("\n4. Update one of the Entries");
-    printf("\n5. Delete one of the Entries");
-    printf("\n6. Delete Entries in Range");
-    printf("\n7. Sort the Entries");
-    printf("\n8. Remove double Entries");
-    printf("\n9. Execute Hexterminate.exe");
+    printf("\n0.  Your Job is done here and you want to stop");
+    printf("\n1.  Read the Data from the super secret file");
+    printf("\n2.  Show all The Entries");
+    printf("\n3.  Create new Entires");
+    printf("\n4.  Update one of the Entries");
+    printf("\n5.  Delete one of the Entries");
+    printf("\n6.  Delete Entries in Range");
+    printf("\n7.  Sort the Entries");
+    printf("\n8.  Remove double Entries");
+    printf("\n9.  Execute Hexterminate.exe");
     printf("\n10. Save All Changes to the super secret file");
     printf("\n");
 }

@@ -39,6 +39,7 @@ void evaluateInput(novel_field *f, int *input){
     int order = -1;
     int lower = 0;
     int upper = 0;
+    int multi = 0;
     char* value;
     value = malloc(201*sizeof(char));
     switch(*input){
@@ -49,14 +50,17 @@ void evaluateInput(novel_field *f, int *input){
             listToString(f);
             break;
         case 3:
-            for(int i = 0; i<5; i++){
-                inputString(value, i);
-                setTempVar(f, i,value);
+            inputInt(&multi, MULTI);
+            for(int j = 0; j<multi; j++){
+                for(int i = 0; i<5; i++){
+                    inputString(value, i);
+                    setTempVar(f, i,value);
+                }
+                addCurrent(f);
             }
-            addCurrent(f);
             break;
         case 4:
-            while(0>=to_edit || to_edit>=getListLength()){
+            while(0>=to_edit || to_edit>getListLength()){
                 inputInt(&to_edit, EDIT);
             }
             editEntry(f, to_edit);

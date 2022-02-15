@@ -27,6 +27,9 @@ void inputInt(int *input, int reason){
         case ORDER:
             printf("\nPlease choose in which order you want the List to be sorted Asc(0) or Desc(1):");
             break;
+        case MULTI:
+            printf("\nPlease choose how many new entries you want to create: ");
+            break;
     }
     fflush(stdin);
     scanf("%d", input);

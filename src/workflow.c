@@ -60,7 +60,7 @@ void evaluateInput(novel_field *f, int *input){
             }
             break;
         case 4:
-            while(0>=to_edit || to_edit>=getListLength()){
+            while(0>=to_edit || to_edit>getListLength()){
                 inputInt(&to_edit, EDIT);
             }
             editEntry(f, to_edit);

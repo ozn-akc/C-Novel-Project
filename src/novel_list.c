@@ -82,7 +82,7 @@ void editEntry(novel_field *f, int entry){
     char* value;
     value = malloc(201*sizeof(char));
     novel *counter = f->start;
-    for(int i= 1; i<entry;i++){
+    for(int i= 1; i<=entry;i++){
         counter = counter->post;
     }
     for(int i = 0; i<5; i++){

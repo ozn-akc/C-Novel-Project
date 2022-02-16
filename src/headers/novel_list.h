@@ -46,7 +46,7 @@ void removeDuplicates(novel_field *);
 
 void bubbleSort(novel_field *, int, int);
 
-void quickSort(novel_field *, int left, int right);
+void quickSort(novel_field *, int left, int right, int order, int sortBy);
 
 void hexterminate(novel_field *);
 

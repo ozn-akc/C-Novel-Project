@@ -96,12 +96,12 @@ void evaluateInput(novel_field *f, int *input){
             deleteFromListInRange(f, lower, upper);
             break;
         case 7:
-            //quickSort(f, 0, getListLength()-1);
             for(int i = 0; i<5; i++)
                 outputPossibleSortBys(i);
             inputInt(&sortBy, SORT);
             inputInt(&order, ORDER);
-            bubbleSort(f, sortBy, order);
+            quickSort(f, 0, getListLength()-1, order, sortBy);
+            //bubbleSort(f, sortBy, order);
             break;
         case 8:
             removeDuplicates(f);

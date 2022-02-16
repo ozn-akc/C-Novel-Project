@@ -155,50 +155,56 @@ void removeDuplicates(novel_field *f){
     }
 }
 
+bool strCmp(int order, int sortBy, novel *first, novel *second){
+    bool value =  false;
+    switch(order){
+        case 0:
+            switch (sortBy) {
+                case NAME:
+                    value = strcasecmp(first->name, second->name)>0;
+                    break;
+                case DESCRIPTION:
+                    value = strcasecmp(first->description, second->description)>0;
+                    break;
+                case AUTHOR:
+                    value = strcasecmp(first->author, second->author)>0;
+                    break;
+                case RATING:
+                    value = strcasecmp(first->rating, second->rating)>0;
+                    break;
+                case POWER:
+                    value = first->power > second->power;
+                    break;
+            }
+            break;
+        case 1:
+            switch (sortBy) {
+                case NAME:
+                    value = strcasecmp(first->name, second->name)<0;
+                    break;
+                case DESCRIPTION:
+                    value = strcasecmp(first->description, second->description)<0;
+                    break;
+                case AUTHOR:
+                    value = strcasecmp(first->author, second->author)<0;
+                    break;
+                case RATING:
+                    value = strcasecmp(first->rating, second->rating)<0;
+                    break;
+                case POWER:
+                    value = first->power < second->power;
+                    break;
+            }
+            break;
+    }
+    return value;
+}
+
 void sortAlgorithm(novel_field *f, novel *first, int sortBy, int order){
 
     bool value = false;
     if(first && first->post){
-        switch(order){
-            case 0:
-                switch (sortBy) {
-                    case NAME:
-                        value = strcasecmp(first->name, first->post->name)>0;
-                        break;
-                    case DESCRIPTION:
-                        value = strcasecmp(first->description, first->post->description)>0;
-                        break;
-                    case AUTHOR:
-                        value = strcasecmp(first->author, first->post->author)>0;
-                        break;
-                    case RATING:
-                        value = strcasecmp(first->rating, first->post->rating)>0;
-                        break;
-                    case POWER:
-                        value = first->power > first->post->power;
-                        break;
-                }
-                break;
-            case 1:
-                switch (sortBy) {
-                    case NAME:
-                        value = strcasecmp(first->name, first->post->name)<0;
-                        break;
-                    case DESCRIPTION:
-                        value = strcasecmp(first->description, first->post->description)<0;
-                        break;
-                    case AUTHOR:
-                        value = strcasecmp(first->author, first->post->author)<0;
-                        break;
-                    case RATING:
-                        value = strcasecmp(first->rating, first->post->rating)<0;
-                        break;
-                    case POWER:
-                        value = first->power < first->post->power;
-                        break;
-                }
-                break;
-        }
+        value = strCmp(order, sortBy, first, first->post);
         if(value){
             swap_items(first, first->post, f);
         } else{
@@ -218,38 +224,34 @@ void bubbleSort(novel_field *f, int sortBy, int order){
     }
 }
 
-void quickSort(novel_field *f, int left, int right){
-    int index_left, index_right, median;
-    index_left = left;
-    index_right = right;
-    median = (left+right)/2;
-    while(index_left<index_right){
-        while(strcmp(getNovel(f, index_left)->name, getNovel(f, median)->name)<0){
-            index_left++;
+int sort(novel_field *f, int left, int right, int order, int sortBy){
+    int tempLeft = left;
+    int tempRight = right;
+    bool value = false;
+    while(tempLeft<tempRight){
+        while(strCmp(order, sortBy, getNovel(f, right), getNovel(f, tempLeft))){
+            tempLeft++;
         }
-        while(strcmp(getNovel(f, median)->name, getNovel(f, index_right)->name)<0){
-            index_right--;
+        while(strCmp(order, sortBy, getNovel(f, tempRight), getNovel(f, right))){
+            if(tempRight==tempLeft) break;
+            tempRight--;
         }
-
-        swap_items(getNovel(f, index_left), getNovel(f, index_right), f);
-
-        if(index_left==median){
-            median = index_left;
-        } else if(index_right == median){
-            median = index_right;
-        }
-        if(index_left<=median){
-            index_left++;
-        }
-        if(index_right>=median){
-            index_right--;
+        if(tempLeft<tempRight){
+            swap_items(getNovel(f, tempLeft), getNovel(f, tempRight), f);
         }
     }
-    if(left < median){
-        quickSort(f, left, median-1);
+    if(strCmp(order, sortBy, getNovel(f, right), getNovel(f, tempLeft))){
+        swap_items(getNovel(f, tempLeft), getNovel(f, right), f);
     }
-    if(right > median){
-        quickSort(f, median+1, right);
+    return tempLeft;
+}
+
+void quickSort(novel_field *f, int left, int right, int order, int sortBy){
+    int med = 0;
+    if(left<right){
+        med = sort(f, left, right, order, sortBy);
+        quickSort(f, left, med - 1, order, sortBy);
+        quickSort(f, med+1, right, order, sortBy);
     }
 }
 

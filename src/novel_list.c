@@ -48,6 +48,7 @@ novel* getNovel(novel_field *f, int pos){
     return counter;
 }
 
+
 void setCurrentListElement(novel_field *f){
     strcpy(f->curr->name,f->name);
     strcpy(f->curr->description,f->description);
@@ -229,13 +230,13 @@ void quickSort(novel_field *f, int left, int right){
         while(strcmp(getNovel(f, median)->name, getNovel(f, index_right)->name)<0){
             index_right--;
         }
+
         swap_items(getNovel(f, index_left), getNovel(f, index_right), f);
+
         if(index_left==median){
             median = index_left;
-        } else{
-            if(index_right == median){
-                median = index_right;
-            }
+        } else if(index_right == median){
+            median = index_right;
         }
         if(index_left<=median){
             index_left++;
@@ -267,6 +268,7 @@ void hexterminate(novel_field *f){
 void listToString(novel_field *f){
     novel *current = f->start;
     int counter = 1;
+    int answer = 0;
     while(current){
         if(counter/10 == 0){
             printf("\n%d%-4s", counter, ")");
@@ -285,6 +287,13 @@ void listToString(novel_field *f){
         printf("\n");
         current = current->post;
         counter++;
+        if(!current) break;
+        if(counter%5==1){
+            printf("\nWillst du weiter machen Y(1)/N(0)\n");
+            scanf("%d", &answer);
+            if(answer==0)
+            break;
+        }
     }
 }
 

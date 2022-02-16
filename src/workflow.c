@@ -1,34 +1,54 @@
 #include "headers/workflow.h"
 
 void evaluateInput(novel_field *, int*);
-void welcomeMsg();
-void requestInput();
 
 /**
  * Init the workflow
  *
  */
 void initialiseWorkflow(){
-    int input = -1;
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+    WORD saved_attributes;
 
+    int input = -1;
+    char password[30+1];
     novel_field field, *f = &field;
 
     initialiseList(f);
     outputWelcomeMsg();
 
-    while(input){
-        outputPossibleActions();
-        inputInt(&input, ACTION);
-        while(input>UPPER || input<LOWER){
-            printf("\nYour Input is out of Bound ");
-            if(input>UPPER){
-                printf("%d is bigger then %d", input, UPPER);
-            } else{
-                printf("%d is smaller then %d", input, LOWER);
-            }
-            inputInt(&input, ACTION);
+    for(int i=0; i<3; i++){
+        strcpy(password, "");
+        printf("\nPlease enter the Password to continue:");
+        printf("\n");
+        fflush(stdin);
+        while(password[0] == 0){
+            SetConsoleTextAttribute(hConsole, 0x0);
+            gets(password);
+            SetConsoleTextAttribute(hConsole, 0x7);
         }
-        evaluateInput(f, &input);
+        encrypt(password);
+        fflush(stdin);
+        if(strcmp(password, PASSWORD)==0)break;
+    }
+
+    if(strcmp(password, PASSWORD)==0){
+        while(input){
+            outputPossibleActions();
+            inputInt(&input, ACTION);
+            while(input>UPPER || input<LOWER){
+                printf("\nYour Input is out of Bound ");
+                if(input>UPPER){
+                    printf("%d is bigger then %d", input, UPPER);
+                } else{
+                    printf("%d is smaller then %d", input, LOWER);
+                }
+                printf("\n");
+                inputInt(&input, ACTION);
+            }
+            evaluateInput(f, &input);
+        }
     }
 }
 
@@ -37,9 +57,9 @@ void evaluateInput(novel_field *f, int *input){
     int to_edit = -1;
     int sortBy = 0;
     int order = -1;
+    int multi = 0;
     int lower = 0;
     int upper = 0;
-    int multi = 0;
     char* value;
     value = malloc(201*sizeof(char));
     switch(*input){
@@ -50,13 +70,14 @@ void evaluateInput(novel_field *f, int *input){
             listToString(f);
             break;
         case 3:
-            inputInt(&multi, MULTI);
-            for(int j = 0; j<multi; j++){
+            while (true){
                 for(int i = 0; i<5; i++){
                     inputString(value, i);
                     setTempVar(f, i,value);
                 }
                 addCurrent(f);
+                inputInt(&multi, MULTI);
+                if(!multi) break;
             }
             break;
         case 4:
@@ -75,11 +96,11 @@ void evaluateInput(novel_field *f, int *input){
             deleteFromListInRange(f, lower, upper);
             break;
         case 7:
+            //quickSort(f, 0, getListLength()-1);
             for(int i = 0; i<5; i++)
                 outputPossibleSortBys(i);
             inputInt(&sortBy, SORT);
             inputInt(&order, ORDER);
-            //quickSort(f, 0, getListLength()-1);
             bubbleSort(f, sortBy, order);
             break;
         case 8:

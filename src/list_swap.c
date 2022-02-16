@@ -62,12 +62,10 @@ void swap_last_rando(novel *a, novel *b){
 void swap_first_second(novel *a, novel *b){
     a->post = b->post;
     a->pre = b;
-    a->pre->post = a;
     a->post->pre = a;
 
     b->pre = 0;
     b->post = a;
-    b->post->pre = b;
 }
 
 void swap_last_snd_to_last(novel *a, novel *b){

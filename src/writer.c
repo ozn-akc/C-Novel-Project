@@ -2,18 +2,27 @@
 
 void writeFile(novel_field *f){
     FILE *file;
-    file = fopen(DATAFILE,"w");
-    if(!file){
-        printf("Datei kann nicht geöffnet werden");
-    } else{
-        novel *current = f->start;
-        while(current){
-            writeListElementToFile(file, current);
-            if(current->post){
-                fprintf(file, "\n");
-            }
-            current = current->post;
+    char datafile[40+1];
+    while(true){
+        strcpy(datafile, "");
+        printf("\nPlease enter the name of the File you want to read from Format(name.txt): ");
+        fflush(stdin);
+        while(datafile[0] == 0){
+            gets(datafile);
         }
+        fflush(stdin);
+        file = fopen(datafile,"w");
+        if(!file || !strstr(datafile, ".txt")){
+            printf("\nFile is not right\n");
+        } else break;
+    }
+    novel *current = f->start;
+    while(current){
+        writeListElementToFile(file, current);
+        if(current->post){
+            fprintf(file, "\n");
+        }
+        current = current->post;
     }
     fclose(file);
 }

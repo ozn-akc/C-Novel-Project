@@ -1,18 +1,13 @@
-#include "headers/novel_list.h"
-#include "headers/list_swap.h"
+#include "headers/list_function.h"
 
 void printCurrentElement(novel_field *, int);
 
-int listLength = 0;
 
 void initialiseList(novel_field *f){
     f->start = 0;
     f->curr = 0;
     f->between = 0;
-}
-
-int getListLength(){
-    return listLength;
+    f->listLength = 0;
 }
 
 //TODO create Type enum with values 0-4
@@ -68,7 +63,7 @@ void addCurrent(novel_field *f){
         f->between->post = f->curr;
     }
     f->between = f->curr;
-    listLength++;
+    f->listLength++;
 }
 
 void updateCurrentEntry(novel_field *f){
@@ -86,10 +81,11 @@ void editEntry(novel_field *f, int entry){
     for(int i= 1; i<=entry;i++){
         counter = counter->post;
     }
+    f->curr = counter;
     for(int i = 0; i<5; i++){
         printCurrentElement(f, i);
         inputString(value, i);
-        setTempVar(f, i,value);
+        setTempVar(f, i, value);
     }
     updateCurrentEntry(f);
 }
@@ -115,7 +111,7 @@ void deleteFromList(novel_field *f, int i){
         todelete->post->pre = todelete->pre;
     }
     free(todelete);
-    listLength--;
+    f->listLength--;
 }
 
 void deleteFromListInRange(novel_field *f, int lower, int upper){
@@ -130,7 +126,7 @@ void removeDuplicates(novel_field *f){
     bool toRemove = false;
     while(dom){
         sub = f->start;
-        int i = 1;
+        int i = 0;
         while(sub){
             if(sub != dom){
                 if(
@@ -155,105 +151,6 @@ void removeDuplicates(novel_field *f){
     }
 }
 
-bool strCmp(int order, int sortBy, novel *first, novel *second){
-    bool value =  false;
-    switch(order){
-        case 0:
-            switch (sortBy) {
-                case NAME:
-                    value = strcasecmp(first->name, second->name)>0;
-                    break;
-                case DESCRIPTION:
-                    value = strcasecmp(first->description, second->description)>0;
-                    break;
-                case AUTHOR:
-                    value = strcasecmp(first->author, second->author)>0;
-                    break;
-                case RATING:
-                    value = strcasecmp(first->rating, second->rating)>0;
-                    break;
-                case POWER:
-                    value = first->power > second->power;
-                    break;
-            }
-            break;
-        case 1:
-            switch (sortBy) {
-                case NAME:
-                    value = strcasecmp(first->name, second->name)<0;
-                    break;
-                case DESCRIPTION:
-                    value = strcasecmp(first->description, second->description)<0;
-                    break;
-                case AUTHOR:
-                    value = strcasecmp(first->author, second->author)<0;
-                    break;
-                case RATING:
-                    value = strcasecmp(first->rating, second->rating)<0;
-                    break;
-                case POWER:
-                    value = first->power < second->power;
-                    break;
-            }
-            break;
-    }
-    return value;
-}
-
-void sortAlgorithm(novel_field *f, novel *first, int sortBy, int order){
-
-    bool value = false;
-    if(first && first->post){
-        value = strCmp(order, sortBy, first, first->post);
-        if(value){
-            swap_items(first, first->post, f);
-        } else{
-        }
-    }
-}
-
-void bubbleSort(novel_field *f, int sortBy, int order){
-    for(int i = 0; i< listLength-1; i++){
-        novel *current = f->start;
-        while(current){
-            if(!current->post)
-                break;
-            sortAlgorithm(f, current, sortBy, order);
-            current = current->post;
-        }
-    }
-}
-
-int sort(novel_field *f, int left, int right, int order, int sortBy){
-    int tempLeft = left;
-    int tempRight = right;
-    bool value = false;
-    while(tempLeft<tempRight){
-        while(strCmp(order, sortBy, getNovel(f, right), getNovel(f, tempLeft))){
-            tempLeft++;
-        }
-        while(strCmp(order, sortBy, getNovel(f, tempRight), getNovel(f, right))){
-            if(tempRight==tempLeft) break;
-            tempRight--;
-        }
-        if(tempLeft<tempRight){
-            swap_items(getNovel(f, tempLeft), getNovel(f, tempRight), f);
-        }
-    }
-    if(strCmp(order, sortBy, getNovel(f, right), getNovel(f, tempLeft))){
-        swap_items(getNovel(f, tempLeft), getNovel(f, right), f);
-    }
-    return tempLeft;
-}
-
-void quickSort(novel_field *f, int left, int right, int order, int sortBy){
-    int med = 0;
-    if(left<right){
-        med = sort(f, left, right, order, sortBy);
-        quickSort(f, left, med - 1, order, sortBy);
-        quickSort(f, med+1, right, order, sortBy);
-    }
-}
 
 void hexterminate(novel_field *f){
     novel *counter = f->start;

@@ -2,9 +2,10 @@
 #define NOVEL_PROJECT_READER_H
 
 #include "project.h"
-#include "novel_list.h"
-
-#define DATAFILE "../data/novel_data.txt"
+#include "list.h"
+#include "crypt.h"
+#include "string.h"
+#include "list_function.h"
 
 void readFile(novel_field*);
 

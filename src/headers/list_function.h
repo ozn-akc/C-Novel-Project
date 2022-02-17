@@ -4,31 +4,15 @@
 #include "project.h"
 #include "input.h"
 #include "crypt.h"
-
-typedef struct m_novel{
-    char name[35+1];
-    char description[200+1];
-    char author[30+1];
-    char rating[50+1];
-    int power;
-    struct m_novel *pre;
-    struct m_novel *post;
-} novel;
-
-typedef struct{
-    char name[35+1];
-    char description[200+1];
-    char author[30+1];
-    char rating[50+1];
-    int power;
-    novel *curr;
-    novel *start;
-    novel *between;
-}novel_field;
+#include "string.h"
+#include "list.h"
+#include "list_swap.h"
 
 void initialiseList(novel_field *);
 
 int getListLength();
+
+novel* getNovel(novel_field *, int);
 
 void setTempVar(novel_field *, int, char*);
 

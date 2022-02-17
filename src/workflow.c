@@ -81,14 +81,14 @@ void evaluateInput(novel_field *f, int *input){
             }
             break;
         case 4:
-            while(0>=to_edit || to_edit>getListLength()){
+            while(0>=to_edit || to_edit>f->listLength){
                 inputInt(&to_edit, EDIT);
             }
             editEntry(f, to_edit);
             break;
         case 5:
-            inputInt(&to_delete,DELETE);
-            deleteFromList(f, to_delete);
+            inputInt(&to_delete,DELETER);
+            deleteFromList(f, to_delete-1);
             break;
         case 6:
             inputInt(&lower,DELETE_LOWER);
@@ -100,7 +100,7 @@ void evaluateInput(novel_field *f, int *input){
                 outputPossibleSortBys(i);
             inputInt(&sortBy, SORT);
             inputInt(&order, ORDER);
-            quickSort(f, 0, getListLength()-1, order, sortBy);
+            quickSort(f, 0, f->listLength-1, order, sortBy);
             //bubbleSort(f, sortBy, order);
             break;
         case 8:

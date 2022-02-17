@@ -6,7 +6,7 @@ void inputInt(int *input, int reason){
         case ACTION:
             printf("\nPlease choose an Action (0-10):");
             break;
-        case DELETE:
+        case DELETER:
             printf("\nPlease choose an Entry to Delete:");
             break;
         case DELETE_LOWER:

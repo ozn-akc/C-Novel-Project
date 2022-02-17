@@ -2,7 +2,7 @@
 #define NOVEL_PROJECT_WRITER_H
 
 #include "project.h"
-#include "novel_list.h"
+#include "list_function.h"
 
 #define DATAFILE "../data/novel_data.txt"
 

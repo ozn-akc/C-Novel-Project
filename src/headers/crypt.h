@@ -3,8 +3,7 @@
 
 #include "project.h"
 
-void encrypt(char* value);
+void encrypt(char*);
+void decrypt(char*);
 
-void decrypt(char* value);
-
-#endif //NOVEL_PROJECT_CRYPT_H
+#endif //NOVEL_PROJECT_CRYPT_

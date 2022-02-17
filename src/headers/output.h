@@ -5,9 +5,7 @@
 #include "enums.h"
 
 void outputWelcomeMsg();
-
 void outputPossibleActions();
-
-void outputPossibleSortBys(int value);
+void outputPossibleSortBys(int);
 
 #endif //NOVEL_PROJECT_OUTPUT_H

@@ -83,4 +83,3 @@ void getValue(char* output, char* buffer){
     while(output[0]==' ')
         removeFirstChar(output, ' ');
 }
-

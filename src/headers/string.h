@@ -5,8 +5,8 @@
 #include "list.h"
 #include "enums.h"
 
-bool strCmp(int order, int sortBy, novel *first, novel *second);
+bool strCmp(int, int, novel*, novel*);
 void removeChar(char*, char );
-void removeFirstChar(char* buffer, char rmchar);
+void removeFirstChar(char*, char);
 
 #endif //NOVEL_PROJECT_STRING_H

@@ -23,5 +23,4 @@ typedef struct{
     novel *between;
 }novel_field;
 
-
 #endif //NOVEL_PROJECT_LIST_H

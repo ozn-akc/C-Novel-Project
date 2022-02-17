@@ -77,11 +77,7 @@ void updateCurrentEntry(novel_field *f){
 void editEntry(novel_field *f, int entry){
     char* value;
     value = malloc(201*sizeof(char));
-    novel *counter = f->start;
-    for(int i= 1; i<=entry;i++){
-        counter = counter->post;
-    }
-    f->curr = counter;
+    f->curr = getNovel(f, entry);
     for(int i = 0; i<5; i++){
         printCurrentElement(f, i);
         inputString(value, i);

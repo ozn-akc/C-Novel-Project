@@ -88,31 +88,36 @@ void editEntry(novel_field *f, int entry){
 
 void deleteFromList(novel_field *f, int i){
     novel *todelete = getNovel(f, i);
-    //Wenn das vorherige nicht existiert und das nächste Existiert setze den vorherigen des nächsten auf 0
-    if(!todelete->pre && todelete->post){
-        //First Element Case
-        todelete->post->pre = 0;
-        f->start = todelete->post;
-    } else if(!todelete->post && todelete->pre){
-        //Last Element case
-        todelete->pre->post = 0;
-        f->between = todelete->pre;
-    }else if(!todelete->post && !todelete->pre){
-        //Only Element Case
-        free(todelete);
-        initialiseList(f);
+    if(todelete){
+        //Wenn das vorherige nicht existiert und das nächste Existiert setze den vorherigen des nächsten auf 0
+        if(!todelete->pre && todelete->post){
+            //First Element Case
+            todelete->post->pre = 0;
+            f->start = todelete->post;
+        } else if(!todelete->post && todelete->pre){
+            //Last Element case
+            todelete->pre->post = 0;
+            f->between = todelete->pre;
+        }else if(!todelete->post && !todelete->pre){
+            //Only Element Case
+            free(todelete);
+            initialiseList(f);
+        }
+        else {
+            todelete->pre->post = todelete->post;
+            todelete->post->pre = todelete->pre;
+            free(todelete);
+        }
+        if(f->start){
+            free(todelete);
+        }
+        f->listLength--;
     }
-    else {
-        todelete->pre->post = todelete->post;
-        todelete->post->pre = todelete->pre;
-    }
-    free(todelete);
-    f->listLength--;
 }
 
 void deleteFromListInRange(novel_field *f, int lower, int upper){
     for(int i = lower; i <= upper; i++){
-        deleteFromList(f, lower);
+        deleteFromList(f, lower-1);
     }
 }
 

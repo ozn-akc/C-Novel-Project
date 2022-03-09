@@ -10,7 +10,6 @@ void initialiseList(novel_field *f){
     f->listLength = 0;
 }
 
-//TODO create Type enum with values 0-4
 void setTempVar(novel_field *f, int type, char* value){
     switch(type) {
         case NAME:
@@ -94,10 +93,12 @@ void deleteFromList(novel_field *f, int i){
             //First Element Case
             todelete->post->pre = 0;
             f->start = todelete->post;
+            free(todelete);
         } else if(!todelete->post && todelete->pre){
             //Last Element case
             todelete->pre->post = 0;
             f->between = todelete->pre;
+            free(todelete);
         }else if(!todelete->post && !todelete->pre){
             //Only Element Case
             free(todelete);
@@ -106,9 +107,6 @@ void deleteFromList(novel_field *f, int i){
         else {
             todelete->pre->post = todelete->post;
             todelete->post->pre = todelete->pre;
-            free(todelete);
-        }
-        if(f->start){
             free(todelete);
         }
         f->listLength--;
